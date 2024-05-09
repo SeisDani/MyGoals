@@ -1,56 +1,32 @@
-import { useState } from "react"
-import { View, TextInput, Button, StyleSheet } from "react-native"
+import { StyleSheet, View, Text, Pressable } from "react-native"
 
-function GoalInput({onAddGoal}) {
+function GoalItem({itemData, onDeleteItem, id}){
 
-    const [enteredGoalText, setEnteredGoalText] = useState('')
-
-    function handleInputGoal(enteredText) {
-        // console.log(enteredText)
-        setEnteredGoalText(enteredText)
-    }
-
-    function addGoalHandler(){
-        onAddGoal(enteredGoalText)
-        setEnteredGoalText('')
-        console.log('addGoalHandler')
-    }
+  function deleteGoalHandler(){
+    onDeleteItem(id)
+    console.log("Delete Goal handeler")
+  }
 
     return(
-      <View style={styles.inputContainer}>
-        <TextInput 
-          style={styles.textInput} 
-          placeholder='Your Goal!'
-          onChangeText={handleInputGoal}
-          value={enteredGoalText}
-        />
-        <Button 
-          title="Add Goal" 
-          color={'#A3FFD6'}
-          onPress={addGoalHandler}
-        />
-      </View>
+      <Pressable onPress={deleteGoalHandler}>
+        <View style={styles.goalsItem} >
+          <Text style={styles.goalText}>{itemData.item.text}</Text>
+        </View>
+      </Pressable>
     )
 }
 
-export default GoalInput
+export default GoalItem
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#7BC9FF'
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    width: '80%',
-    marginRight: 3,
+  goalsItem: {
+    margin: 8,
     padding: 8,
-    borderRadius: 5
+    borderRadius: 6,
+    backgroundColor: '#8576FF',
+    color: 'white'
   },
+  goalText: {
+    color: 'white',
+  }
 })
